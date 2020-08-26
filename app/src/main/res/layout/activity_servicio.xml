@@ -14,4 +14,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detener servicio"/>
+    <Button android:id="@+id/superpos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detener servicio"
+        android:onClick="superposicion"
+        />
+    <Button android:id="@+id/superposa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Anuncio personalizado"
+        android:onClick="custombroadcast"
+        />
+    <Button android:id="@+id/superposa1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="InenetService"
+        android:onClick="miintentservice"
+        />
 </LinearLayout>
