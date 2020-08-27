@@ -31,10 +31,13 @@ public class miIntentService extends AppCompatActivity {
         double n = Double.parseDouble(entrada.getText().toString());
         salida.append(n +"^2 = ");
         miprogress.setVisibility(View.VISIBLE);
-
-        Intent i = new Intent(this, IntentServiceOperacion.class);
+/* Intent i = new Intent(this, IntentServiceOperacion.class);
+i.putExtra("numero", n);
+startService(i);*/
+        Intent i = new Intent();
         i.putExtra("numero", n);
-        startService(i);
+        JobIntentServiceOperacion.enqueueWork(this,i);
+
     }
     public class ReceptorOperacion extends BroadcastReceiver {
         public static final String ACTION_RESP =

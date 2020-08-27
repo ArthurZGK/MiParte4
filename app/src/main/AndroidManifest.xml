@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".miIntentService"></activity>
-        <activity android:name=".Anuncio_personalizado" />
-
+        <activity android:name=".MiBindService"></activity>
+        <activity android:name=".miIntentService" />
+        <activity android:name=".Anuncio_personalizado" /> <!-- <receiver android:name=".ActionReceiver"/> -->
+        <receiver android:name=".ActionReceiver">
+            <intent-filter>
+                <action android:name="pausar" />
+                <action android:name="reproducir" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".ReceptorSMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -29,8 +36,14 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
-<service android:name=".IntentServiceOperacion"   />
-<service android:name=".ServicioOperacion"/>
+
+        
+        <service android:name=".MyLocalService"/>
+        <service
+            android:name=".JobIntentServiceOperacion"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service android:name=".IntentServiceOperacion" />
+        <service android:name=".ServicioOperacion" />
         <service android:name=".ServicioMusica" />
 
         <activity android:name=".Servicio">

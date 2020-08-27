@@ -17,7 +17,8 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 public class ServicioMusica extends Service {
-    MediaPlayer reproductor;
+
+    public static MediaPlayer reproductor;
     private static final int ID_NOTIFICACION_CREAR = 1;
     public static final String NOTIFICATION_CHANNEL_ID = "1000";
     public static final String NOTIFICATION_CHANNEL_NAME = "MICANAL";
@@ -28,6 +29,21 @@ public class ServicioMusica extends Service {
     }
     @Override
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
+
+       /* Intent intencionpausar = new Intent(this,ActionReceiver.class);*/
+        Intent intencionpausar = new Intent();
+
+        intencionpausar.setAction("pausar");
+        PendingIntent intencionPendientepausar =
+                PendingIntent.getBroadcast(this,0, intencionpausar,0);
+
+        /*Intent intencionreproducir = new Intent(this,ActionReceiver.class);*/
+        Intent intencionreproducir = new Intent();
+
+
+        intencionreproducir.setAction("reproducir");
+        PendingIntent intencionPendientereproducir =
+                PendingIntent.getBroadcast(this,0, intencionreproducir,0);
 
         Intent intencionLlamar = new Intent(Intent.ACTION_DIAL,
                 Uri.parse("tel:555123456"));
@@ -40,16 +56,17 @@ public class ServicioMusica extends Service {
                 .setContentText(Html.fromHtml("<b>Notificación</b> <u>Android<i>Curso</i></u>"))
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),
                         android.R.drawable.ic_media_play))
-                .setStyle(new NotificationCompat.InboxStyle()
+/*                .setStyle(new NotificationCompat.InboxStyle()
                         .addLine("Nueva Conferencia Los neutrinos")
                         .addLine("Nuevo curso Android Wear")
                         .setBigContentTitle("2 notificaciones AndroidCurso")
-                        .setSummaryText("info@upt.pe"))
+                        .setSummaryText("info@upt.pe"))*/
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle())
                 .setNumber(4)
-                .setAutoCancel(true)
-
-                .addAction(android.R.drawable.ic_menu_call, "llamar", intencionPendienteLlamar)
-
+                .addAction(android.R.drawable.ic_menu_call, "Llamar", intencionPendienteLlamar)
+                .addAction(android.R.drawable.ic_media_pause, "Pausar", intencionPendientepausar)
+                .addAction(android.R.drawable.ic_media_play, "Reproducir", intencionPendientereproducir)
+                //.setAutoCancel(true)
                 .setSubText("más info");
 
         // Para lanzar una actividad
